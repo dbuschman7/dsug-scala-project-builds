@@ -3,3 +3,5 @@ build/
 .settings/
 .classpath
 .gradle/
+logs/
+target/
