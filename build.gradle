@@ -1,0 +1,80 @@
+//
+// Setup code 
+// ////////////////////////////
+plugins {
+    id 'play'
+}
+
+repositories {
+    jcenter()
+    maven {
+        name "typesafe-maven-release"
+        url "https://repo.typesafe.com/typesafe/maven-releases"
+    }
+    ivy {
+        name "typesafe-ivy-release"
+        url "https://repo.typesafe.com/typesafe/ivy-releases"
+        layout "ivy"
+    }
+}
+
+
+//
+// Project Config
+// ///////////////////////////////
+project(':javaLib') {
+   apply plugin: 'java'
+
+   dependencies {
+       testCompile 'junit:junit:4.11'
+   }
+}
+
+project(':scalaLib') {
+   apply plugin: 'scala'
+
+   dependencies {
+       compile project(':javaLib')
+       compile "org.scala-lang:scala-library:2.11.7"
+       
+       testCompile 'junit:junit:4.11'
+   }
+}
+
+project(':playApp') {
+   apply plugin: 'play'
+   model {
+     components {
+        play {
+            platform play: '2.3.9', scala: '2.11'
+        }
+     }
+   }
+
+  dependencies {
+      play project(':scalaLib')
+      play "commons-lang:commons-lang:2.6"
+  }
+}
+
+// 
+// Common config 
+// ////////////////////////////////
+allprojects {
+   apply plugin: 'eclipse'
+
+   repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        name "typesafe-maven-release"
+        url "https://repo.typesafe.com/typesafe/maven-releases"
+    }
+    ivy {
+        name "typesafe-ivy-release"
+        url "https://repo.typesafe.com/typesafe/ivy-releases"
+        layout "ivy"
+    }
+   }
+}
+
