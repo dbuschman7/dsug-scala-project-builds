@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>me.lightspeed7.dsug</groupId>
+	<artifactId>dsug-scala-project-builds</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>javaLib</module>
+		<module>scalaLib</module>
+		<module>playApp</module>
+	</modules>
+
+	<name>DSUG Scala Project Builds</name>
+	<description>Parent project</description>
+	<inceptionYear>2015</inceptionYear>
+	<organization>
+		<name>Lightspeed7 Consulting</name>
+		<url>http://lightspeed7.me</url>
+	</organization>
+
+
+	<properties>
+		<version.junit>4.12</version.junit>
+		<version.maven.clean>2.5</version.maven.clean>
+		<version.maven.compiler>3.1</version.maven.compiler>
+		<version.maven.jar>2.4</version.maven.jar>
+		<version.maven.surefire>2.14.1</version.maven.surefire>
+		<version.slf4j>1.7.9</version.slf4j>
+
+		<!-- Scala -->
+		<version.play2>2.3.6</version.play2>
+		<version.scala>2.11.7</version.scala>
+		<version.scalatest>2.2.4</version.scalatest>
+		<version.play2.plugin>1.0.0-beta2</version.play2.plugin>
+		<version.sbt-compiler.plugin>1.0.0-beta5</version.sbt-compiler.plugin>
+		<version.scala.maven.plugin>3.2.1</version.scala.maven.plugin>
+
+	</properties>
+
+	<dependencies>
+		<!-- Test Dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${version.junit}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- For every Jar -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${version.slf4j}</version>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>http://repo1.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>typesafe-maven-release</id>
+			<name>Maven Repository Tyepsafe</name>
+			<layout>default</layout>
+			<url>https://repo.typesafe.com/typesafe/maven-releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${version.maven.clean}</version>
+				</plugin>
+				<plugin>
+					<groupId>net.alchim31.maven</groupId>
+					<artifactId>scala-maven-plugin</artifactId>
+					<version>${version.scala.maven.plugin}</version>
+					<configuration>
+						<args>
+							<arg>-unchecked</arg>
+							<arg>-deprecation</arg>
+							<arg>-explaintypes</arg>
+						</args>
+					</configuration>
+					<executions>
+						<execution>
+							<id>scala-compile-first</id>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>add-source</goal>
+								<goal>compile</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>scala-test-compile</id>
+							<phase>process-test-resources</phase>
+							<goals>
+								<goal>testCompile</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${version.maven.compiler}</version>
+					<configuration>
+						<source>${project.jdk.revision}</source>
+						<target>${project.jdk.revision}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${version.maven.jar}</version>
+					<configuration>
+						<!-- skipIfEmpty>true</skipIfEmpty -->
+						<archive>
+							<manifest>
+								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${version.maven.surefire}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.google.code.play2-maven-plugin</groupId>
+					<artifactId>play2-maven-plugin</artifactId>
+					<version>${version.play2.plugin}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.google.code.sbt-compiler-maven-plugin</groupId>
+					<artifactId>sbt-compiler-maven-plugin</artifactId>
+					<version>${version.sbt-compiler.plugin}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

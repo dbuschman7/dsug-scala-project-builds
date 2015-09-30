@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>me.lightspeed7.dsug</groupId>
+		<artifactId>dsug-scala-project-builds</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>playApp</artifactId>
+	<packaging>play2</packaging>
+
+	<name>Play App</name>
+	<description>Play App</description>
+
+	<dependencies>
+		<!-- Core Dependencies -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>scalaLib</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+
+		<!-- Third Party -->
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${version.scala}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.play</groupId>
+			<artifactId>play_2.11</artifactId>
+			<version>${version.play2}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.play</groupId>
+			<artifactId>play-test_2.11</artifactId>
+			<version>${version.play2}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<sourceDirectory>${basedir}/app</sourceDirectory>
+		<testSourceDirectory>${basedir}/test</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>${basedir}/conf</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>com.google.code.play2-maven-plugin</groupId>
+				<artifactId>play2-maven-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*Spec.java</include>
+					</includes>
+					<excludes>
+						<exclude>test/IntegrationSpec.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>eclipse</id>
+			<!-- for M2Eclipse only -->
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<configuration>
+							<skipMain>true</skipMain>
+							<skip>true</skip>
+						</configuration>
+						<executions>
+							<execution>
+								<id>default-compile</id>
+								<goals>
+									<goal>compile</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>default-testCompile</id>
+								<goals>
+									<goal>testCompile</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

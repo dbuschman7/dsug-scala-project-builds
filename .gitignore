@@ -1,7 +1,19 @@
-build/
+# Eclipse Ignores
 .project 
 .settings/
 .classpath
+
+# IntelliJ Ignores
+.idea
+*.iml
+
+# Gradle Ignores
+build/
 .gradle/
-logs/
+
+# SBT ignores
 target/
+
+# Maven ignores
+.cache-tests
+.cache-main
