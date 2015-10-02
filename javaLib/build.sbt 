@@ -1,5 +1,0 @@
-crossPaths := false
-
-autoScalaLibrary := false
-
-compileOrder := CompileOrder.JavaThenScala
