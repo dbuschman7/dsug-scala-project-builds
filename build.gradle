@@ -2,58 +2,58 @@
 // Setup code 
 // ////////////////////////////
 plugins {
-    id 'play'
+  id "com.github.maiflai.scalatest" version "0.10"
 }
-
-repositories {
-    jcenter()
-    maven {
-        name "typesafe-maven-release"
-        url "https://repo.typesafe.com/typesafe/maven-releases"
-    }
-    ivy {
-        name "typesafe-ivy-release"
-        url "https://repo.typesafe.com/typesafe/ivy-releases"
-        layout "ivy"
-    }
-}
-
 
 //
 // Project Config
 // ///////////////////////////////
 project(':javaLib') {
    apply plugin: 'java'
+   apply plugin: 'scala'
 
-   dependencies {
-       testCompile 'junit:junit:4.11'
-   }
+	dependencies {
+		testCompile 'junit:junit:4.12'
+		testCompile "org.scala-lang:scala-library:2.11.7"
+		testCompile 'org.scalatest:scalatest_2.11:2.2.5'
+	}
+      
+	test {
+        beforeTest { descriptor ->
+        	logger.lifecycle("Running test: " + descriptor)
+        }
+	}
 }
 
 project(':scalaLib') {
-   apply plugin: 'scala'
+    apply plugin: 'scala'
+	apply plugin: "com.github.maiflai.scalatest"
 
-   dependencies {
-       compile project(':javaLib')
-       compile "org.scala-lang:scala-library:2.11.7"
+   	dependencies {
+    	compile project(':javaLib')
+    	compile "org.scala-lang:scala-library:2.11.7"
        
-       testCompile 'junit:junit:4.11'
-   }
+    	testCompile 'junit:junit:4.12'
+    	testCompile 'org.scalatest:scalatest_2.11:2.2.2'
+    	
+    	testRuntime 'org.pegdown:pegdown:1.1.0'
+   	}
 }
 
 project(':playApp') {
-   apply plugin: 'play'
-   model {
-     components {
-        play {
-            platform play: '2.3.9', scala: '2.11'
-        }
-     }
-   }
+   	apply plugin: 'play'
+    model {
+     	components {
+        	play {
+           		platform play: '2.3.9', scala: '2.11'
+        	}
+     	}
+    }
 
   dependencies {
       play project(':scalaLib')
       play "commons-lang:commons-lang:2.6"
+      playTest "com.google.guava:guava:17.0"
   }
 }
 
@@ -76,5 +76,8 @@ allprojects {
         layout "ivy"
      }
    }
+
+	
 }
+
 

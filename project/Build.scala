@@ -13,10 +13,14 @@ object ApplicationBuild extends Build {
     version := "0.0.1",
     scalaVersion := "2.11.7")
 
-  val dependencies = Seq("org.scala-lang" % "scala-library" % "2.11.7")
+  val dependencies = Seq("org.scala-lang" % "scala-library" % "2.11.7",
+    "junit" % "junit" % "4.12" % "test",
+    "org.scalatest" %% "scalatest" % "2.2.5" % "test" //
+    )
 
   val javaJar = Project("javaLib", file("javaLib"))
     .settings(commonSettings: _*)
+    .settings(libraryDependencies ++= dependencies)
 
   val scalaJar = Project("scalaLib", file("scalaLib"))
     .settings(commonSettings: _*)
