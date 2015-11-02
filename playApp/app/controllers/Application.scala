@@ -2,7 +2,7 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import me.lightspeed7.dsug.scala.build.Hello
+import me.lightspeed7.dsug.scala.Hello
 
 object Application extends Controller {
 
