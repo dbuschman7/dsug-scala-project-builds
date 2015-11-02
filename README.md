@@ -19,32 +19,49 @@ Martin Odersky -- We are in the middle of a paradigm shift [in] the industry,
 * SBT is the Simple (or Scala) Build Tool
 	* Default build tool for Scala, 
 	* Martin Odersky says Scala will continue to allow all three.
-* Describe the project layout, libraries and jars 
-	* Java Library
-	* Scala Library
-	* PlayApp
-* Describe the Play! framework directory structure
-	* app and test directories  
-	* public directory       
-	* conf dir - application.conf and routes    
-* Example Scala file, Java File, and Play Controller     
-	* File.java
-	* File.scala
-	* Application controller
-* Go through gradle build 
-	* settings.gradle 
-	* build.gradle 
-	* run command line build  -- gradle clean build 
-* Go through Maven build 
-	* root pom
-	* JavaLib pom.xml 
-	* ScalaLib pom.xml 
-	* PlayApp pom.xml
-	* run command line build -- mvn clean verify
-* Go through the SBT build 
-	* build.sbt 
-	* Project directory
-	* run command line -- sbt ;clean ;cleanFiles ;test 
-* Run the PlayApp
-	* sbt run -- localhost:9000		 
-	
+* Testing - Recommend ScalaTest 
+	* [ScalaTest WebSite](http://www.scalatest.org)
+	* [Matchers Quick Reference](http://www.scalatest.org/user_guide/matchers_quick_reference)
+	* [selecting a style](http://www.scalatest.org/user_guide/selecting_a_style)
+* JavaLib
+	* running a ScalaTest as a jUnit test
+	* class is ScalaTest
+* ScalaLib 
+	* run ScalaTest in additon to jUnit 
+	* ScalaFeatureSpecTest
+	* ScalaFlatSpecTest
+	* ScalaFunSuiteTest
+* Show build systems example 
+	* Maven 
+	  	* JavaLib - no changes  
+		* ScalaLib - added scalatest - pom.xml
+		* mvn clean test
+	* Gradle 
+		*  build.gradle
+		* JavaLib 
+			* add beforeTest handle to see tests when they run
+		* ScalaLib 
+			* add scalatest plugin
+		* gradle clean test 
+	* Sbt 
+		* project/build.sbt - add scalatest dependency 
+		* sbt clean test 	
+		 
+* Testing code in ScalaTest 
+	* [Pascal's Triangle](https://en.wikipedia.org/wiki/Pascal%27s_triangle)
+	* Possible iterations - iterative and recursive  
+	* PascalTriangleTest - look at examples 
+		* Java Iterative 
+			* PascalJava
+			* show Java to Scala conversions of List[List[Long]]
+		* Scala Recursive 
+			* PascalScala
+			* show prettyPrint code 
+		* Scala worksheet - O Captian, My Captian
+			* investigate a simpler algorithm
+			* determine structure to use 
+			* need a structure to generate the next value on the fly 
+			 
+				
+			 
+					 	
